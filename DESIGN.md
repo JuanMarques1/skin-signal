@@ -461,3 +461,7 @@ Create a floating #ffffff 28px-radius pricing callout over a product render usin
 ## Aplicação no Skin Signal
 
 Referência aplicada à navegação, hero centralizado, tipografia, cores, controles e páginas internas. Fotografia conceitual existente usada como imagem principal. Vídeo e arquivo MP4 removidos a pedido do usuário. Demonstração de interface mantida sem captura de dados.
+
+## Paleta atual solicitada pelo usuário
+
+A estrutura de galeria permanece. A paleta substitui as cores Apple: vinho #421d24 nos CTAs e rodapé; violeta #714cb6 nos links; lilás #d4c7ff nos destaques; lagoa #0c4243 na seção editorial; pergaminho #f2f0eb no fundo; névoa #e3e3e2 nas faixas; carvão #292827 no texto; cinza #666666 no texto secundário; branco #ffffff nos cartões. Os nove tokens CSS estão declarados em :root.
