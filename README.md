@@ -1,6 +1,6 @@
 # Skin Signal
 
-Site acadêmico em React + Vite, inspirado no conceito de espelho inteligente Skin Signal. Design responsivo champagne/rosé.
+Site acadêmico em React + Vite, inspirado no conceito de espelho inteligente Skin Signal. Design responsivo baseado na referência Superhuman fornecida pelo usuário.
 
 ## Executar
 
@@ -49,4 +49,4 @@ Adicionar identidade e integrantes reais, contatos verificados, endereço/mapa s
 
 ## Fontes
 
-DM Sans e Italiana via Google Fonts, com alternativas locais de sistema. Para eliminar a requisição externa, hospede as fontes localmente ou remova o `@import` em `src/styles.css`.
+Inter variável via Google Fonts, com alternativas locais de sistema. Para eliminar a requisição externa, hospede as fontes localmente ou remova o `@import` em `src/styles.css`.
