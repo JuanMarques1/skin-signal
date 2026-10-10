@@ -1,6 +1,6 @@
 # Skin Signal
 
-Site acadêmico em React + Vite, inspirado no conceito de espelho inteligente Skin Signal. Design responsivo baseado na referência Superhuman fornecida pelo usuário.
+Site acadêmico em React + Vite, inspirado no conceito de espelho inteligente Skin Signal.
 
 ## Executar
 
