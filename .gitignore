@@ -4,3 +4,10 @@ dist/
 .vercel/
 
 .prerender/
+
+**/bin/
+**/obj/
+.env
+!.env.example
+.env.local
+.env.*.local

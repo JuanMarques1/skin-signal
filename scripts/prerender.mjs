@@ -1,7 +1,7 @@
 import {readFile, writeFile, mkdir, rm} from 'node:fs/promises';
 import {dirname} from 'node:path';
 import {render} from '../.prerender/entry-server.js';
-import {metadata, routes, origin} from '../src/seo.js';
+import {metadata, routes, indexableRoutes, origin} from '../src/seo.js';
 
 const template = await readFile('dist/index.html', 'utf8');
 const escape = value => value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -17,6 +17,6 @@ for (const path of [...routes, '/404']) {
   await writeFile(file, html);
 }
 await writeFile('dist/robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap.xml\n`);
-await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes.map(path => `  <url><loc>${origin}${path}</loc></url>`).join('\n')}\n</urlset>\n`);
+await writeFile('dist/sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexableRoutes.map(path => `  <url><loc>${origin}${path}</loc></url>`).join('\n')}\n</urlset>\n`);
 await rm('.prerender', {recursive:true, force:true});
 console.log(`Generated ${routes.length} public pages, 404, robots.txt and sitemap.xml.`);

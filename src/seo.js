@@ -2,6 +2,7 @@ import {articles} from './content.js';
 
 export const origin = 'https://skin-signal.vercel.app';
 const pages = {
+  '/conta': ['Minha conta | Skin Signal', 'Entre para salvar sua rotina na conta e consultar seu histórico pessoal de autocuidado.'],
   '/apresentacao': ['Apresentação do projeto | Skin Signal', 'Conheça o problema, a proposta, os diferenciais e o funcionamento do conceito Skin Signal em uma apresentação navegável.'],
   '/rotina': ['Monte sua rotina de autocuidado | Skin Signal', 'Responda três perguntas sobre horários e hábitos e monte um checklist simples de autocuidado, sem cadastro ou envio de dados.'],
   '/': ['Skin Signal | Espelho inteligente para autocuidado', 'Conheça o conceito Skin Signal: espelho inteligente com iluminação, organização da rotina e proposta de acompanhamento visual. Produto em desenvolvimento.'],
@@ -16,11 +17,12 @@ const pages = {
 };
 for (const article of articles) pages[`/blog/${article.slug}`] = [`${article.title} | Skin Signal Journal`, article.excerpt];
 export const routes = Object.keys(pages);
+export const indexableRoutes = routes.filter(path => path !== '/conta');
 export function metadata(path) {
   const [title, description] = pages[path] || ['Página não encontrada | Skin Signal', 'A página solicitada não foi encontrada. Explore o conceito Skin Signal.'];
   const article = articles.find(a => path === `/blog/${a.slug}`);
   const url = origin + path;
-  return {title, description, url, type: article ? 'article' : 'website', robots: pages[path] ? 'index,follow' : 'noindex,follow', schema: {
+  return {title, description, url, type: article ? 'article' : 'website', robots: pages[path] && path !== '/conta' ? 'index,follow' : 'noindex,follow', schema: {
     '@context': 'https://schema.org', '@graph': [
       {'@type': 'WebSite', '@id': `${origin}/#website`, url: `${origin}/`, name: 'Skin Signal', inLanguage: 'pt-BR', description: pages['/'][1]},
       {'@type': article ? 'Article' : 'WebPage', '@id': `${url}#page`, url, name: title, description, inLanguage: 'pt-BR', isPartOf: {'@id': `${origin}/#website`}, ...(article ? {headline: article.title, author: {'@type': 'Organization', name: 'Equipe Skin Signal'}, articleBody: article.body.join('\n\n')} : {})},

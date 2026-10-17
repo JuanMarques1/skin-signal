@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {ArrowLeft, ArrowRight, Check} from 'lucide-react';
 import {questions, buildRoutine} from './routine.js';
 import {routineStorageKey, validSavedRoutine, routineText} from './routine-storage.js';
+import CloudRoutine from './CloudRoutine.jsx';
 
 export default function RoutineQuiz() {
   const [step, setStep] = useState(0);
@@ -53,7 +54,7 @@ export default function RoutineQuiz() {
     <div className="routine-intro"><div className="eyebrow">SEU TEMPO, SUAS ESCOLHAS</div><h1 id="routine-title">Uma rotina que cabe no seu dia.</h1><p>Responda 3 perguntas e monte um checklist de organização do autocuidado. Sem cadastro.</p></div>
     <div className="routine-layout">
       <aside className="routine-guide"><span className="eyebrow">UM PASSO DE CADA VEZ</span><ol>{questions.map((q, i) => <li key={q.id} aria-current={step === i ? 'step' : undefined} className={step > i ? 'is-complete' : ''}><span>{step > i ? <Check size={16} aria-hidden="true"/> : `0${i + 1}`}</span>{['Seu momento', 'Seu tempo', 'Seu objetivo'][i]}</li>)}</ol><p>Ao terminar, você pode salvar a rotina neste navegador. Sem conta ou envio para servidores.</p></aside>
-      <div className="routine-panel">
+      <div className="routine-panel"><CloudRoutine answers={answers} checked={checked} allowSave={result} onLoad={next => {setAnswers(next);setChecked([]);move(questions.length);}}/>
         {!result ? <form onSubmit={e => { e.preventDefault(); if (answers[question.id]) move(step + 1); }}>
           <p className="routine-progress">Pergunta {step + 1} de 3</p>
           <h2 ref={heading} tabIndex={-1} className="routine-question">{question.title}</h2>
