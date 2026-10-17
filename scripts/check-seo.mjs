@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
-import {metadata, routes, origin} from '../src/seo.js';
+import {metadata, routes, indexableRoutes, origin} from '../src/seo.js';
 import {articles, faqs} from '../src/content.js';
 
 const decode = s => s.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#x27;/g, "'").replace(/&#39;/g, "'");
@@ -14,7 +14,7 @@ for (const route of routes) {
   assert.equal(title, metadata(route).title);
   assert(!titles.has(title), `${route}: duplicate title`); titles.add(title);
   assert(html.includes(`rel="canonical" href="${origin}${route}"`));
-  assert.match(html, /name="robots" content="index,follow"/);
+  assert(html.includes(`name="robots" content="${metadata(route).robots}"`));
   const schema = JSON.parse(html.match(/id="page-schema" type="application\/ld\+json">(.*?)<\/script>/s)[1]);
   assert.equal(schema['@graph'][1].url, origin + route);
   for (const [, href] of html.matchAll(/<a[^>]*href="(\/[^"#?]*)"/g)) assert(routes.includes(href), `${route}: internal link missing static page: ${href}`);
@@ -23,8 +23,8 @@ for (const route of routes) {
   if (route === '/faq') for (const [question, answer] of faqs) { assert(decode(html).includes(question)); assert(decode(html).includes(answer)); }
 }
 const sitemap = await readFile('dist/sitemap.xml', 'utf8');
-assert.equal((sitemap.match(/<loc>/g) || []).length, routes.length);
-for (const route of routes) assert(sitemap.includes(`<loc>${origin}${route}</loc>`));
+assert.equal((sitemap.match(/<loc>/g) || []).length, indexableRoutes.length);
+for (const route of indexableRoutes) assert(sitemap.includes(`<loc>${origin}${route}</loc>`));
 assert.match(await readFile('dist/robots.txt', 'utf8'), /User-agent: \*\nAllow: \/\n/);
 assert.match(await readFile('dist/404.html', 'utf8'), /name="robots" content="noindex,follow"/);
 const config = JSON.parse(await readFile('vercel.json', 'utf8'));

@@ -72,3 +72,9 @@ As perguntas e a lógica estão em `src/routine.js`; a interface está em `src/R
 `/produto` inclui um simulador visual de iluminação quente, neutra e fria, além de uma galeria com a imagem conceitual e aproximações da borda e base. `src/ProductExtras.jsx` reúne essas interações e a apresentação de cinco partes em `/apresentacao`, com navegação por botões, setas e tela cheia quando suportada.
 
 Em `/rotina`, o salvamento é opcional: após clicar em **Salvar neste navegador**, respostas e etapas são mantidas no localStorage e atualizadas automaticamente. **Apagar rotina salva** remove os dados locais. Não há sincronização entre dispositivos. A aplicação valida a versão e o conteúdo antes de restaurar o estado. Copiar checklist usa a área de transferência, com texto selecionável como alternativa. O link de WhatsApp prepara a mensagem e deixa o usuário escolher destinatário e confirmar o envio no serviço.
+
+## Contas e histórico (API opcional)
+
+A primeira API fica em `backend/SkinSignal.Api`, com PostgreSQL e configuração Render em `render.yaml`. Veja `backend/README.md` para execução, migrações, endpoints e limites do ambiente gratuito.
+
+O frontend habilita a conta quando `VITE_API_URL` contém a origem da API. Sem essa configuração, o site e o salvamento local continuam funcionando. A sessão fica apenas na memória da página; o usuário entra novamente ao recarregar. A sincronização e o registro de conclusão são explícitos, e a área `/conta` permite consultar/remover histórico e excluir a conta.
