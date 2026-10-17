@@ -1,6 +1,6 @@
 # Skin Signal
 
-Site acadêmico em React + Vite, inspirado no conceito de espelho inteligente Skin Signal.
+Site do Skin Signal, desenvolvido com React + Vite para apresentar o conceito de espelho inteligente e suas funcionalidades.
 
 ## Executar
 
@@ -20,32 +20,32 @@ npm run preview
 
 ## Deploy na Vercel
 
-1. Extraia este projeto e envie seu conteúdo para um repositório GitHub.
+1. Envie o projeto para um repositório GitHub.
 2. Na Vercel, selecione **Add New → Project** e importe o repositório.
 3. Framework: **Vite**. Build: `npm run build`. Output: `dist`.
-4. Se o projeto estiver dentro de uma pasta do repositório, defina essa pasta como Root Directory.
+4. Se necessário, configure a pasta do projeto como Root Directory.
 5. Clique em **Deploy**. `vercel.json` configura as URLs internas para a SPA.
 
-Não precisa de variáveis de ambiente nesta versão. Também é possível usar a CLI da Vercel após autenticação: `npx vercel`.
+Não são necessárias variáveis de ambiente nesta versão. Também é possível usar a CLI da Vercel após autenticação: `npx vercel`.
 
 ## Rotas
 
 - `/`: Home
 - `/sobre`: história, missão, visão e valores
 - `/produto`: produto e funcionalidades propostas
-- `/contato`: formulário demonstrativo e situação dos canais de contato
-- `/privacidade` e `/termos`: documentos para a demonstração acadêmica
-- `/blog`: artigos, com URLs próprias
-- `/loja`: produto, sacola e conclusão de compra simulada
+- `/contato`: formulário de contato
+- `/privacidade` e `/termos`: informações legais
+- `/blog`: artigos
+- `/loja`: apresentação do produto, sacola e checkout demonstrativo
 - `/faq`: perguntas frequentes
 
-## O que funciona
+## Funcionalidades atuais
 
-Navegação, menu mobile, FAQ expansível, validação nativa do formulário, sacola, quantidades e conclusão simulada. O carrinho existe apenas na memória e é apagado ao recarregar. Nenhum formulário envia dados. Não há cobrança, pedidos reais, backend ou IA executada. O espelho é uma ilustração em CSS com dados simulados.
+Navegação, menu mobile, FAQ expansível, validação nativa do formulário e fluxo demonstrativo de sacola e checkout. O carrinho é mantido apenas na memória e é apagado ao recarregar. Atualmente não há processamento de pagamentos, envio de formulários, pedidos reais ou backend. A visualização do espelho utiliza CSS e dados ilustrativos.
 
-## Antes de vender de verdade
+## Próximas etapas
 
-Adicionar identidade e integrantes reais, contatos verificados, endereço/mapa se aplicável, preço validado, pagamento seguro, backend, envio de mensagens, logística e políticas revisadas para a operação real. Não adicionar credenciais ao código frontend. Não inventar depoimentos ou resultados clínicos.
+Integrar contatos verificados, pagamentos seguros, backend, envio de mensagens, logística e políticas adequadas à operação real. Não adicionar credenciais ao frontend nem apresentar depoimentos ou resultados clínicos não verificados.
 
 ## Fontes
 
