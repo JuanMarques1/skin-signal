@@ -2,6 +2,7 @@ import {articles} from './content.js';
 
 export const origin = 'https://skin-signal.vercel.app';
 const pages = {
+  '/rotina': ['Monte sua rotina de autocuidado | Skin Signal', 'Responda três perguntas sobre horários e hábitos e monte um checklist simples de autocuidado, sem cadastro ou envio de dados.'],
   '/': ['Skin Signal | Espelho inteligente para autocuidado', 'Conheça o conceito Skin Signal: espelho inteligente com iluminação, organização da rotina e proposta de acompanhamento visual. Produto em desenvolvimento.'],
   '/produto': ['Espelho inteligente Skin Signal | Recursos propostos', 'Entenda a proposta do espelho Skin Signal: LED ajustável, registros visuais e lembretes de autocuidado. Conheça os recursos e seus limites.'],
   '/sobre': ['Sobre o Skin Signal | Tecnologia e autocuidado', 'Conheça a ideia, a missão e os valores do Skin Signal, um conceito de espelho inteligente para organizar a rotina de autocuidado.'],

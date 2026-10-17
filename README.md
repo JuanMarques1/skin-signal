@@ -60,3 +60,9 @@ O build pré-renderiza todas as rotas públicas com o mesmo componente React usa
 `scripts/prerender.mjs` gera o sitemap e robots.txt em `dist`. Não há regras especiais de bloqueio de robôs. A estrutura usa WebSite, WebPage e Article, sem ofertas comerciais ou resultados clínicos.
 
 Após gerar o build, execute `npm run check:seo`. Depois do deploy, confirme as URLs no Search Console e envie `/sitemap.xml`. Indexação e citações por ferramentas de IA não são garantidas.
+
+## Rotina interativa e comparação
+
+A página `/produto` compara um espelho comum com os recursos propostos do Skin Signal. `/rotina` oferece três perguntas sobre horário, tempo e objetivo, gerando um checklist que pode ser marcado. É possível voltar, ajustar respostas e recomeçar. Tudo fica no estado do React: não há conta, API, envio de dados ou armazenamento persistente. O checklist organiza hábitos e não recomenda tratamentos.
+
+As perguntas e a lógica estão em `src/routine.js`; a interface está em `src/RoutineQuiz.jsx` e a tabela em `src/ProductComparison.jsx`.
