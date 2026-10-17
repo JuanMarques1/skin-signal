@@ -63,6 +63,12 @@ Após gerar o build, execute `npm run check:seo`. Depois do deploy, confirme as 
 
 ## Rotina interativa e comparação
 
-A página `/produto` compara um espelho comum com os recursos propostos do Skin Signal. `/rotina` oferece três perguntas sobre horário, tempo e objetivo, gerando um checklist que pode ser marcado. É possível voltar, ajustar respostas e recomeçar. Tudo fica no estado do React: não há conta, API, envio de dados ou armazenamento persistente. O checklist organiza hábitos e não recomenda tratamentos.
+A página `/produto` compara um espelho comum com os recursos propostos do Skin Signal. `/rotina` oferece três perguntas sobre horário, tempo e objetivo, gerando um checklist que pode ser marcado. É possível voltar, ajustar respostas e recomeçar. Sem conta ou API. O salvamento local é opcional e pode ser removido pelo usuário. O checklist organiza hábitos e não recomenda tratamentos.
 
 As perguntas e a lógica estão em `src/routine.js`; a interface está em `src/RoutineQuiz.jsx` e a tabela em `src/ProductComparison.jsx`.
+
+## Explorações do produto
+
+`/produto` inclui um simulador visual de iluminação quente, neutra e fria, além de uma galeria com a imagem conceitual e aproximações da borda e base. `src/ProductExtras.jsx` reúne essas interações e a apresentação de cinco partes em `/apresentacao`, com navegação por botões, setas e tela cheia quando suportada.
+
+Em `/rotina`, o salvamento é opcional: após clicar em **Salvar neste navegador**, respostas e etapas são mantidas no localStorage e atualizadas automaticamente. **Apagar rotina salva** remove os dados locais. Não há sincronização entre dispositivos. A aplicação valida a versão e o conteúdo antes de restaurar o estado. Copiar checklist usa a área de transferência, com texto selecionável como alternativa. O link de WhatsApp prepara a mensagem e deixa o usuário escolher destinatário e confirmar o envio no serviço.

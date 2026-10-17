@@ -1,0 +1,45 @@
+import React, {useEffect, useRef, useState} from 'react';
+import {Link} from 'react-router-dom';
+import {ArrowLeft, ArrowRight, Maximize, Minimize, Sun} from 'lucide-react';
+import Mirror from './Mirror.jsx';
+
+const lights = [{id:'warm', name:'Quente', description:'Uma atmosfera acolhedora para desacelerar.'}, {id:'neutral', name:'Neutra', description:'Uma luz equilibrada para os momentos do dia a dia.'}, {id:'cool', name:'Fria', description:'Uma atmosfera mais clara para observar os detalhes.'}];
+export function LightingDemo() {
+  const [light, setLight] = useState('neutral');
+  const selected = lights.find(item => item.id === light);
+  return <section className="section lighting-section" aria-labelledby="lighting-title"><div className="lighting-copy"><div className="eyebrow">ENCONTRE SUA LUZ</div><h2 id="lighting-title">Três luzes.<br/>Seu momento.</h2><p>Experimente a aparência das iluminações propostas para o espelho.</p><div className="light-buttons" role="group" aria-label="Temperatura da iluminação">{lights.map(item => <button key={item.id} type="button" aria-pressed={light === item.id} onClick={() => setLight(item.id)}><Sun size={18} aria-hidden="true"/>{item.name}</button>)}</div><p className="light-description" role="status">{selected.description}</p><p className="smallprint">Simulação visual. As cores na tela não reproduzem a iluminação real nem especificações de um produto final.</p></div><div className="lighting-preview"><Mirror light={light}/><span className="light-caption">Luz {selected.name.toLowerCase()} · visual ilustrativo</span></div></section>;
+}
+
+const gallery = [
+  {label:'Visão geral', title:'O espelho no seu espaço.', text:'Uma composição conceitual do formato oval, suporte e base.', className:'gallery-overview', src:'/images/hero-mirror-studio.webp', alt:'Conceito do espelho Skin Signal completo em uma bancada de pedra clara'},
+  {label:'Iluminação', title:'Uma moldura de luz.', text:'Detalhe visual da borda iluminada proposta para o espelho.', className:'gallery-ring', src:'/images/hero-mirror-studio.webp', alt:'Detalhe da borda oval iluminada do conceito Skin Signal'},
+  {label:'Acabamento', title:'Detalhes que compõem o conjunto.', text:'Aproximação da base e do suporte com acabamento champagne conceitual.', className:'gallery-base', src:'/images/hero-mirror-studio.webp', alt:'Detalhe da base circular e do suporte champagne do conceito Skin Signal'},
+];
+export function ProductGallery() {
+  const [active, setActive] = useState(0);
+  const item = gallery[active];
+  return <section className="section product-gallery" aria-labelledby="gallery-title"><div className="section-heading"><div><div className="eyebrow">UM OLHAR MAIS DE PERTO</div><h2 id="gallery-title">Conheça os detalhes.</h2></div><p>Explore o produto e aproximações da imagem conceitual.</p></div><div className="gallery-buttons" role="group" aria-label="Vistas do produto">{gallery.map((image, i) => <button type="button" key={image.label} aria-pressed={active === i} onClick={() => setActive(i)}>{image.label}</button>)}</div><figure className="gallery-detail"><div className={'gallery-viewport '+item.className}><img src={item.src} alt={item.alt} width="1672" height="941" loading="lazy"/></div><figcaption aria-live="polite"><strong>{item.title}</strong><span>{item.text}</span></figcaption></figure><p className="smallprint">Imagens conceituais. Acabamento, materiais e recursos estão sujeitos a desenvolvimento.</p></section>;
+}
+
+const slides = [
+  {label:'01 · O problema', title:'Cuidar de si também precisa de espaço.', text:'Entre compromissos e tarefas, organizar uma rotina pessoal pode acabar em segundo plano.', points:['Etapas e lembretes espalhados.', 'Dificuldade para manter um momento de cuidado.', 'Falta de um lugar para acompanhar os próprios hábitos.']},
+  {label:'02 · A proposta', title:'Um objeto cotidiano, uma nova possibilidade.', text:'Skin Signal é um conceito de espelho de mesa que reúne iluminação e organização do autocuidado.', points:['LED ajustável proposto.', 'Uma rotina cadastrada pelo usuário.', 'Histórico pessoal e lembretes em uma interface.']},
+  {label:'03 · Os diferenciais', title:'Tecnologia com autonomia.', text:'A proposta aproxima o espelho e a rotina sem transformar o cuidado em um diagnóstico.', points:['Preferências e etapas definidas pela pessoa.', 'Consentimento e exclusão de registros previstos.', 'Recursos de IA ainda dependem de desenvolvimento e validação.']},
+  {label:'04 · Como funcionaria', title:'Configurar. Cuidar. Acompanhar.', text:'O fluxo proposto começa com escolhas simples e acompanha os momentos de autocuidado.', points:['Definir preferências e etapas.', 'Usar a iluminação e seguir a rotina.', 'Consultar registros e acompanhar a constância.']},
+  {label:'05 · O que já é possível', title:'Experimente a ideia no site.', text:'A versão atual permite conhecer o conceito e explorar interações no próprio navegador.', points:['Quiz com checklist, salvamento local e compartilhamento.', 'Simulador de iluminação e galeria conceitual.', 'Produto físico, IA e vendas reais ainda não estão disponíveis.']},
+];
+export function Presentation() {
+  const [index, setIndex] = useState(0);
+  const [fullscreen, setFullscreen] = useState(false);
+  const [message, setMessage] = useState('');
+  const stage = useRef(null), heading = useRef(null), moved = useRef(false);
+  const slide = slides[index];
+  useEffect(() => { if (moved.current) heading.current?.focus(); }, [index]);
+  useEffect(() => { const change = () => setFullscreen(document.fullscreenElement === stage.current); document.addEventListener('fullscreenchange', change); return () => document.removeEventListener('fullscreenchange', change); }, []);
+  function go(next) { moved.current = true; setIndex(Math.max(0, Math.min(slides.length - 1, next))); }
+  async function toggleFullscreen() {
+    try { if (document.fullscreenElement) await document.exitFullscreen(); else if (stage.current?.requestFullscreen) await stage.current.requestFullscreen(); else setMessage('Tela cheia indisponível neste navegador. A apresentação continua nesta página.'); }
+    catch { setMessage('Não foi possível abrir a tela cheia. A apresentação continua nesta página.'); }
+  }
+  return <section className="section presentation-page"><div className="presentation-intro"><div><div className="eyebrow">SKIN SIGNAL EM 5 PARTES</div><h1>Uma ideia para apresentar.</h1></div><Link className="text-link" to="/produto">Explorar o produto <ArrowRight size={18}/></Link></div><div className="presentation-stage" ref={stage} onKeyDown={event => { if (event.target.closest('button, a, input, textarea, select')) return; if (event.key === 'ArrowRight') {event.preventDefault(); go(index + 1);} if (event.key === 'ArrowLeft') {event.preventDefault(); go(index - 1);} }} tabIndex={0} aria-label="Apresentação Skin Signal. Use as setas para navegar."><div className="presentation-toolbar"><span>SKIN SIGNAL</span><button type="button" className="presentation-fullscreen" onClick={toggleFullscreen}>{fullscreen ? <Minimize size={18}/> : <Maximize size={18}/>} {fullscreen ? 'Sair da tela cheia' : 'Tela cheia'}</button></div><div className="presentation-content"><div><p className="eyebrow">{slide.label}</p><h2 ref={heading} tabIndex={-1}>{slide.title}</h2><p>{slide.text}</p><ul>{slide.points.map(point => <li key={point}>{point}</li>)}</ul>{index === slides.length - 1 && <Link className="button" to="/rotina" onClick={() => { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); }}>Experimentar o checklist <ArrowRight size={16}/></Link>}</div><img src="/images/hero-mirror-studio.webp" alt="Conceito do espelho Skin Signal em uma bancada clara" width="1672" height="941"/></div><div className="presentation-controls"><button type="button" onClick={() => go(index - 1)} disabled={index === 0}><ArrowLeft size={18}/> Anterior</button><span role="status">{index + 1} de {slides.length}</span><button type="button" onClick={() => index === slides.length - 1 ? go(0) : go(index + 1)}>{index === slides.length - 1 ? 'Recomeçar' : 'Próximo'} <ArrowRight size={18}/></button></div><p className="presentation-help">Navegue pelos botões ou pelas setas do teclado. Esc sai da tela cheia.</p>{message && <p role="status">{message}</p>}</div></section>;
+}
